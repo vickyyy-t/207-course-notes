@@ -4,24 +4,18 @@
 - a way for us to control the versions of our code.
 - tracking the changes that we've made, and control our revisions.
 
-everyone works on their own independent version and the version control system lets you merge your changes in as needed, keeping track of revisions as they're made.
-
-
 ## 0.2. How version control works
 In version control systems, there is a **master** repository: a copy of the latest versions of all files. People **clone** the repository to get their own local copy, which they work on independently.
 
 As people make changes and reach a state that they want reflected in the master repository, they **push** their changes in. Similarly, anyone who wants the latest version of the repository will **pull** the changes.
 
-There are many other features of version control, but the above is the general concept and the simplest explanation for how we use version control systems.
-
 ## 0.3. Git
 In git, the master repository is also known as the **origin**.
 
-Thus the general workflow for making changes is as follows:
 - `git status`: Lets us see what files have changed in our local copy
 - `git clone <url>`: Get a local copy of the repository
-- `git add <files>`: Lets us add ("stage") files that we want to modify in the origin.
-- `git commit -m "<message>"`: Saves our changes to the local repository, labelling the added changes with a message to describe our changes.
+- `git add <files>`: Lets us add ("stage") files that we want to modify in the origin
+- `git commit -m "<message>"`: Saves our changes to the local repository, labelling the added changes with a message to describe our changes
 - `git push`: Pushes changes to the origin repository
 - `git pull`: Copy over any changes into your local repository
 
@@ -32,4 +26,4 @@ make a new **branch**: this is a spinoff of the master repository, in which you 
 
 when ready to merge your branch into the master repository:
 - checkout your master branch
-- `git merge <branch name>`
+- `git merge <branch name>` (nicer method is to make a pull request)
