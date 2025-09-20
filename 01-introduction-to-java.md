@@ -2,138 +2,21 @@
 
 ## 1.0 Why Learn Java?
 
-This is a course about object-oriented software design, so why not stick with Python,
-a language you're already familiar with? This is a common question at the beginning of
-CSC207! While we could continue to work with Python,
-there are several benefits to learning Java, including:
-
-- Java remains one of the most widely used programming languages in industry,
-  especially in enterprise software and large-scale systems.
-- By comparing the Python and Java implementations of OOP, you'll gain a deeper
-  understanding of OOP fundamentals.
-- As you continue in computer science, you'll encounter many programming languages.
-  Learning Java now helps you build the skills to pick up new languages more easily.
-
-In the next course, CSC209, you'll work with C programming language that operates
-much closer to the hardware. Java sits between Python and C in terms of abstraction.
-It’s still high-level, but introduces features like static typing and manual compilation,
-that prepare you for working with C.
-
-Before we get to any code, we'll learn just a bit about how Java works.
-
 ### 1.0.1 Running a Program
-
-Let’s take a step back: what does it mean to “run” a program?
-
-When you write code in a high-level language like Java or Python, the computer
-can’t directly understand it. The code must be translated into machine code
-that is eventually executed on the physical hardware.
 
 There are two main ways this translation happens:
 
-- **Interpretation**: The program is read and executed line-by-line by another
-  program called an interpreter. (e.g., Python)
-- **Compilation**: The entire program is translated into machine code ahead of
-  time by a compiler, producing an executable file. (e.g., C)
-
-Java uses a combination of these two in a hybrid approach.
-The Java compiler (`javac`) translates source code into **bytecode**,
+- **Interpretation (Python)**: The program is read and executed line-by-line by another
+  program called an interpreter
+- **Compilation (C)**: The entire program is translated into machine code ahead of
+  time by a compiler, producing an executable file
+- **Hybrid (Java)**: The Java compiler (`javac`) translates source code into **bytecode**,
 an intermediate form. The **Java Virtual Machine (JVM)** then interprets and
 optimizes this bytecode at runtime.
 
-To run a Java program, you must first **compile** it and then **execute** it.
-
-If you had a simple program in a file called `HelloWorld.java`,
-you could compile it by running `javac HelloWorld.java` in the terminal. This produces a file called
-`HelloWorld.class`, which contains the bytecode. To then run the program,
-you could run `java HelloWorld` in the terminal.
-
-> Note: If `javac` isn't on your "PATH", then you won't be able to directly run
-> this command without some configuration steps.
-
-As projects grow in complexity, you may have hundreds of source code files
-that need to be compiled. Directly running `javac` yourself would be tedious,
-so modern development environments like IntelliJ automate this process using
-**build systems** such as Maven or Gradle. These tools manage compilation,
-dependencies, and execution, allowing you to focus on writing code. However,
-understanding the underlying process is important — especially if you plan
-to later take CSC209, where you'll need to compile C programs without the
-help of your IDE.
-
 ### 1.0.2 Computer Architecture
 
-As we just learned, Java programs need to be compiled before they are then run.
-To better understand why Java is designed in this way, we'll take a very high-level
-look at computer architecture.
-
-In earlier courses (CSC108/148 and CSC110/111), you focused on writing applications.
-But those applications don’t run in isolation — they rely on the
-**operating system (OS)** to manage resources and interact with hardware.
-The OS acts as a bridge between your program and the physical computer.
-It handles tasks like memory management, file access, and process scheduling.
-
-Here’s a simplified view of the architecture:
-
-```
-Applications
----------------
-Operating System
----------------
-Hardware
-```
-
-Notice how we visualize this architecture in **layers** — we'll talk much
-more about this fundamental idea of layers throughout the course.
-
-A language like C is compiled directly into machine code that runs on a specific OS.
-This means the compiled program is **not portable** — it must be recompiled for
-each operating system that it will run on!
-
----
-
-#### 1.0.2.1 Virtual Machine Architecture
-
-A **Virtual Machine (VM)** is a software application that simulates a computer.
-It provides a consistent environment for running programs, regardless of the
-underlying OS.
-
-A language like Java uses VMs to achieve **portability**. A program written for a
-VM can run on _any system that has the appropriate VM installed_.
-
-We can update our computer architecture diagram to include this new layer between
-the applications layer and the operating system layer.
-
-```
-Applications
----------------
-Virtual Machine
----------------
-Operating System
----------------
-Hardware
-```
-
-This design allows developers to write code once and run it anywhere — without
-worrying about OS-specific details. Of course, a VM itself is just another
-application running on an OS, so those OS-specific details still need to be
-taken care of in the VM code. What has changed is that the VM is now solely
-responsible for worrying about such details. The application developer
-can then focus on their own application without needing to worry about such
-details.
-
----
-
-#### 1.0.2.2 Java Architecture
-
-Java’s architecture is built around the **Java Virtual Machine (JVM)**.
-As the name suggests, the JVM has the benefits of being a VM that we just
-discussed. Recall that when a Java source file is compiled, the result is
-**bytecode** in a `.class` file that can then be executed by the JVM.
-This means the same `.class` file can run on Windows, macOS, or Linux,
-as long as a JVM is installed!
-
-To summarize, our layers look like:
-
+Java’s architecture:
 ```
 Java Applications
 ---------------
@@ -144,33 +27,22 @@ Operating System
 Hardware
 ```
 
-Primarily, we'll only need to concern ourselves with writing Java source
-files (`.java` files), but it is good to start thinking about the
-big picture of how our source code eventually gets executed. The above
-also introduced a few ideas related to design: the use of layers to organize
-systems and different parts of a system having separate responsibilities.
+- applications rely on the **operating system (OS)** to manage resources and interact with hardware.
+- compiled program is **not portable** — it must be recompiled for
+each operating system that it will run on
 
-In other CS courses, you can learn more about related topics to the above,
-such as C programming (CSC209), hardware (CSC258),
-operating systems (CSC369), compilers (CSC488), and programming languages (CSC324).
 
-Now, we can turn our attention to writing Java code!
+- **Virtual Machine (VM)** is a software application that simulates a computer.
+- it provides a consistent environment for running programs, regardless of the
+underlying OS.
+- language like Java uses VMs to achieve **portability**. A program written for a
+VM can run on _any system that has the appropriate VM installed_.
 
-> Note: throughout, we'll show related Python code and highlight similarities
-> and differences between the two languages to help you quickly get up to speed
-> with the syntax of Java so that you'll be writing Java code in no time!
 
 ## 1.1. A first look at Java
-Let's begin by looking at something very simple in Python:
-
-```print(7 + 5)```
-
-and see how to do it in Java.
 
 ### 1.1.1. Defining classes
 In Java, no code can exist outside a class, and there are no functions, only methods.
-So if we want to evaluate and print `7 + 5`, we need to define a class
-and a method to put that code in.
 
 Here is the outline of a class called `Hello`:
 ```java
@@ -179,30 +51,19 @@ class Hello {
 }
 ```
 
-Notice the curly braces. In Python, indentation shows code nesting.
-In Java, we use curly braces to define code blocks, and indentation
-doesn't affect correctness. Of course, indentation still matters to
-programmers — it makes code readable.
-
-The double slash indicates that the rest of the line is a comment.
+{} is used to define code blocks\
+indentation doesn't affect correctness\
+ues semicolon to mark the end of a statement
 
 ### 1.1.2. Defining methods
-We need to put the code for printing `7 + 5` inside a method in our class,
-and we want to be able to run that method.
-So we need to understand how a program is run in Java.
 
-In Python, we can run a single line of code at the shell,
-or we can run an entire module. A Python module is simply the code that exists
-in a single file. When we run a module, the code is executed from top to bottom.
+In Java, don't have the concept of a module, everything is organized
+around classes
 
-In Java, we don't have the concept of a module. Instead, everything is organized
-around classes. When we execute a program in Java, we actually execute a class.
-Of course, a class may have multiple methods in it, so which one is executed?
-There is a special method called `main` that any class may define.
-If we run that class, the main method is executed.
+execute a program = execute a class = execute `main` method
 
-The `main` method must be defined with a very specific signature in order to be
-recognized as this special method:
+define `main` method :\
+shortform `psvm`
 
 ```java
 class Hello { 
@@ -212,110 +73,45 @@ class Hello {
 }
 ```
 
-This is similar to Python's `if __name__ == '__main__':` block,
-though that takes place *outside* of any classes.
-
-The keyword `public` determines what code, where, is allowed to call this method.
-Java's philosophy about sharing vs. hiding a class's data members and methods is
-much more cautious than Python's, and the language has strong mechanisms for
-expressing exactly where a class can be accessed. You'll learn more about this later,
-as well as the meaning of the other parts of the `main` method's signature.
-For now, all we need to know is that this `main` method will be executed
-if we run class `Hello`.
-
-We have to type `public static void main(String[] args)` so often that IntelliJ has
-a shortform for it: `psvm`.
 
 ![psvm completion in IntelliJ](images/psvm.gif)
 
 ### 1.1.3. Printing things
-In Python, we use a function called `print` to print things.
-In Java, we use a method called `System.out.println`:
-
+use a method called `System.out.println`:\
+shortform `sout`
 ```java
 class Hello {
     public static void main(String[] args) {
       System.out.println(7 + 5);
     }
 }
-``` 
-
-You might wonder why the method has this multipart name. `System` is a class,
-and `out` is a static data member defined in that class.
-It is an instance of another class that has many methods for printing things,
-including `println`. We pronounce this "print line"; this method puts a newline
-character at the end of whatever you are printing.
-
-The **semicolon** is the next difference from Python.
-In Python, a statement ends when we hit the return key
-(unless we add a backslash to say that we want to continue on the next line).
-In Java, we use a semicolon to mark the end of a statement.
+```
 
 ## 1.2. Variables and Types
-### 1.2.1. Flexible Python vs. Strict Java
-Python is very flexible about how we use variables.
-Consider this interaction with the Python shell:
-```python
->>> stuff = ['Jia', 'Musa', 'Vugar', 'Nicole']
->>> type(stuff)
-<type 'list'>
->>> stuff = 14.6
->>> type(stuff)
-<type 'float'>
->>> stuff = {12345: 'Jia', 55132: 'Vugar', 98765: 'Nicole'}
->>> type(stuff)
-<type 'dict'>
-```
-You may not have noticed how much we are getting away with here.
-We were able to assign a value to variable called `stuff` that
-Python has never heard of until this moment, we could assign to it
-any type of value, and could freely change the kind of value it is given.
-This freedom can be convenient, but it also facilitates writing buggy code
-if we don't keep careful track of what type of value `stuff` is referring to.
-This is why it is so valuable to define type contracts for your functions
-in Python.
 
-Java is different. Instead of optional type hints like in Python,
-Java uses a statically typed system where type declarations are
-*required and enforced by the compiler*. This strict type checking ensures
-that we follow type contracts, helping catch many bugs at compile time and
-improving overall type safety.
-
-### 1.2.2. Declaring Types
-In Python, when we say `type(stuff)`, we are told the type of the object that
+### 1.2.1. Declaration and Assignment
+In Python:  `type(stuff)` told the type of the object that
 `stuff` refers to. The variable `stuff` itself has no type, and it can refer
 to an object of any type.
 
-In Java, every value has a type, but so does *every variable*.
-We must specify a variable's type before assigning a value to the variable,
-and its type can never change. This is called declaring the variable.
-As an example:
+In Java: every value has a type, but so does *every variable*.
+
+declaring the variable:
+- we must specify a variable's type before assigning a value to the variable
+- its type can never change
 
 ```java
 int i;
+int u = 42;
 ```
 
-Here we declare a variable called `i` to be of type `int`.
-Space is reserved in memory for this variable, and Java remembers that you
-have promised only to assign it to `int` values.
-
-### 1.2.3. Declaration and Assignment
-If we wish, we can assign a value immediately after declaring the variable,
-even in the same line of code:
-
-```java
-int i = 42;
-```
-
-In our previous example with just `int i;` we would be postponing assigning
-a value to `i` until later. In the meanwhile, the variable's name is known
-to Java, space has been reserved to store its value, and it is given a default
-value. For an `int`, the default value is `0`; for objects,
-it is `null` (the equivalent to Python's `None`).
+- declare a variable called `i` to be of type `int`
+- Java remembers that you have promised only to assign it to `int` values
+- `int i;` : given a default value (for `int` is `0`, for objects is `null`)
+- `int u = 42;` : assign a value immediately after declaring the variable
 
 
-
-### 1.2.4. Keeping track of our variables
+### 1.2.2. Keeping track of our variables
 Java must keep track of four things associated with each variable:
 
 1. The variable's name, which we provide when we declare the variable.
@@ -325,53 +121,26 @@ Java must keep track of four things associated with each variable:
 
 The only one of these that can change is the value of the variable.
 
-### 1.2.5. Errors
-Java checks as many things as it can, in order to help us avoid bugs.
-These are some errors related to variables and types that it can detect:
-
-#### 1.2.5.1. Didn't declare
-Here we use a variable that we did not declare:
+### 1.2.3. Errors related to variables and types
+1. Didn't declare: `"i cannot be resolved to a variable."`
 
 ```java
 public static void main(String[] args) {
     i = 42;
 }
 ```
-Java gives this error: `"i cannot be resolved to a variable."` In other words,
-Java is trying to find a variable called `i` and is unable to.
-This could never happen in Python. In Python, if we assign a value to a new name,
-Python makes a new variable.
 
-But don't worry, if you forget to declare a variable, IntelliJ will help you out:
-
-![psvm completion in IntelliJ](images/declare.gif)
-
-#### 1.2.5.2. Assign value of the wrong type
-Here we assign the wrong type of value to a variable:
-
+2. Assign value of the wrong type: `"Type mismatch: cannot convert from double to int."`(Type `double` is like `float` in Python.)
 ```java
 public static void main(String[] args) {
     int i = 19.6;
 }
 ```
-Java gives the error: `"Type mismatch: cannot convert from double to int."`
-(Type `double` is like `float` in Python.) Java has caught a type mismatch.
-This could not happen in Python, because variables have no type in Python;
-only objects do.
+- couldn't convert `19.6` to the type of variable `i`, this would cause loss of information \
+- instead assigned an `int` value to a `double` variable,
+it could have made the conversion and be fine
 
-Notice that Java tried to be accommodating by converting `19.6` to the
-type of variable `i`, but it couldn't. This would have caused a loss of information.
-If we instead assigned an `int` value to a `double` variable,
-it could have made the conversion. So this code is perfectly fine:
-
-```java
-public static void main(String[] args) {
-    double i = 19;
-}
-```
-
-#### 1.2.5.3. Declare a variable using a name that already exists
-Here we declare a variable called i, and then do so again.
+3. Declare a variable using a name that already exists: `"Duplicate local variable i."`
 
 ```java
 public static void main(String[] args) {
@@ -380,11 +149,6 @@ public static void main(String[] args) {
 }
 
 ```
-
-Java gives the error: `"Duplicate local variable i."` This couldn't happen in Python.
-In Python, we never declare variables, we just use them. The first time we use a name,
-Python creates the variable, and the next time we use the same name,
-Python assumes we are referring to the same variable.
 
 ## 1.3. Reference Types and Primitive Types
 ### 1.3.1. More Java types
