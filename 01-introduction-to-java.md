@@ -1175,7 +1175,6 @@ so usage of this form is not recommended. The information is just for reference.
 
 ## 1.9. Parameters
 
-Let's quickly recap some parameter concepts and terminology that are common to Java and Python.
 
 Here's a simple example:
 ```java
@@ -1233,8 +1232,9 @@ public static void main(String[] args) {
  }
 ```
 
-The answer is `14`. The reason for this behaviour is clear when we consider
-what's happening in memory. This diagram shows the state of the program just
+The answer is `14`.
+
+This diagram shows the state of the program just
 before the method assigns a new value to `i`.
 
 ![Memory model diagram of parameters](images/Java-1-13-1.png)
@@ -1255,8 +1255,7 @@ if __name__ == '__main__':
     increase(cost)
     print(cost)
 ```
-The reason, however, is different. Can you draw the memory model for this code,
-and explain why it also fails to increase `cost`? The diagram will *not* be the same.
+The reason, however, is different. The diagram will *not* be the same.
 
 How can we use a method to change the value of `cost`?
 In either programming language, we use the same approach:
@@ -1275,13 +1274,10 @@ public static void main(String[] args) {
 }
 ```
 
-Notice that we changed the method's name to `increased`.
-Now that the method returns a value, it makes sense to use a noun
-rather than a verb. The line `cost = increased(cost)` reads nicely.
-
 ### 1.9.1. Passing a reference creates an alias
 As we learned, if an argument to a method is a variable,
 what we assign to the method's parameter is simply the value contained in the box.
+
 If that variable of a reference type, what's in the box is a reference,
 so the argument and parameter become aliases.
 What can happen next depends on whether the object is mutable.
@@ -1312,14 +1308,13 @@ This is the state of memory immediately before method `increase` returns:
 ![Mutable parameter aliasing memory model](images/Java-1-13-2.png)
 The call stack contains two variables, each referencing the same `StringBuilder` object.
 
-Here are some things to notice:
 
 - When we called method `increase`, a new frame was pushed onto the call stack.
-- In the upper left corner of the frame, we write the method name.
-- In the upper right corner, we write what the method belongs to, in this case, class `Parameter`.
-- The parameter `sb` exists in the stack frame. It comes into being when the method is called.
-  And when the method returns, this stack frame will be popped off the stack and discarded,
-  along with everything in it. At that point, `sb` no longer exists.
+  - In the upper left corner of the frame, we write the method name.
+  - In the upper right corner, we write what the method belongs to, in this case, class `Parameter`.
+  - The parameter `sb` exists in the stack frame. It comes into being when the method is called.
+    And when the method returns, this stack frame will be popped off the stack and discarded,
+    along with everything in it. At that point, `sb` no longer exists.
 - When we passed argument `word` to parameter `sb`, we assigned its value to `sb`.
   In other words, we copied what was in the box: `id29`. This created an alias.
 - `id29` is a reference to a `StringBuilder` object, which is mutable.
