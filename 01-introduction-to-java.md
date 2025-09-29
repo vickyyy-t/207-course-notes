@@ -746,11 +746,6 @@ irregular[1][8] = 170;
 ## 1.7. Aliases
 ### 1.7.1. Aliasing and its implications
 
-We've learned that Java has two kinds of types: primitive types such as `int`,
-which store a value directly inside them, and reference types such as `String`
-which store a reference to an object inside them. We must follow the reference
-to get to the values and methods stored in the object.
-
 In order to know what our code is going to do, we must always be aware of whether
 a variable is primitive or a reference.
 This can completely change what happens when our code is executed.
@@ -773,21 +768,10 @@ After these lines have executed, this would be the state of memory:
 We have two variables referencing the very same `String` object.
 Whenever two variables reference the same object we say that they are **aliases**.
 
-Compare this to the dictionary definition of the word "alias"!
-An alias is used when a person is also known under a different name.
-For example, we might say "Eric Blair, alias George Orwell".
-We have two names for the same thing, in this case a person.
-
-We can create an alias in Python in the same fashion as in Java:
- 
-```python
-name = "Justin Trudeau"
-primeMinister = name
-```
 
 ### 1.7.3. With primitives, we cannot create aliases
 
-Returning to Java, if we write the analogous code using `int` instead of `String`,
+If we write the analogous code using `int` instead of `String`,
 we _do not create an alias_.
 
 ```java
@@ -806,9 +790,7 @@ because it does not have primitive types.
 ### 1.7.4. Side effects of aliasing
 
 Just like in Python, there are side effects to aliasing in Java. 
-If we have two references to the same object, we have to be aware of this
-or our code will do things that surprise us.
- 
+
 Suppose we have a class called `Monster`, and it has methods called `grow`
 (to make a monster bigger) and `size` (to find out how big a monster is).
 
@@ -863,8 +845,6 @@ to — we made a **new** `String`.
 
 ### 1.7.5. Making a copy in order to avoid side effects
 
-We've seen that when two variables are aliases for the same object,
-and the object is mutable, we can have side effects.
 If we want to avoid side effects, instead of making an alias,
 we can make a copy of the object. Here's an example that uses this strategy:
 
@@ -885,10 +865,11 @@ It is much easier to answer that with a clear picture of what is happening in me
 
 ![Memory model diagram for copies](images/1.7-5.png)
 
-Notice that, despite its name, `copy1` doesn't actually refer to a copy of the array;
+`copy1` doesn't actually refer to a copy of the array;
 it is merely a second reference to the array object we already had.
 Changes to the array referenced by `words` show up when you look at the array
 referenced by `copy1` (and vice versa) because they are the *same array*.
+
 But `copy2` refers to a second array object. Each of its elements contains a copy
 of an element of the first array object. Changing `copy2` has no effect on the
 original array, `words`.
