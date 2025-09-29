@@ -152,50 +152,48 @@ public static void main(String[] args) {
 
 ## 1.3. Reference Types and Primitive Types
 ### 1.3.1. More Java types
-So far we've seen one type of variable: `int`. Java has many other types, as does Python.
-Here are some very simple examples to demonstrate some of these.
-
 ```java
 // We've seen an int before.
 int age = 21;
+
 // Strings must be double-quoted in Java, unlike Python.
 String name = "Jude";
+
 // This type is named boolean in Java, rather than bool (as in Python).
-// Its values are true and false in Java (with no capital letter), 
-// rather than True and False (as in Python).
+// Its values are true and false in Java (with no capital letter),
 boolean graduated = false;
+
 // Type double is like float in Python.
 double gpa = 3.82;
 ```
-
-There are additional integer-valued and real-valued types that allow us to
-either save memory (and give up precision) or gain precision
-(at the cost of using more memory). You can read more in the
-[official Java tutorials](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html).
 
 ### 1.3.2. References vs. Primitives
 In Python, every value you can store, even the simplest thing such
 as the integer `1`, is an object. No variable ever stores a `1` directly;
 it must instead store a reference to an object of type `int` that contains
 the value `1`. You probably learned to draw memory model diagrams where
-these references were unique identifiers, like `id17`. As you will see,
-those diagrams are still going to be incredibly useful when reasoning about Java code.
+these references were unique identifiers, like `id17`.
 
 However, Java is different. It has two kinds of types:
-_reference types_ and _primitive types_. Understanding the difference is
-essential for writing correct Java code.
+_reference types_ and _primitive types_. 
 
-Type `String` is a **reference** type. This is like what you are used to from
-Python. A Java variable cannot hold a `String` value directly inside itself;
-it can only hold a reference to an object of type `String`.
-But type `int` is a **primitive** type. A Java variable can hold an `int` value
-directly inside itself.
+**Reference Type**:
+- for example Type`String`
+- hold a reference to an object of type `String` (just like in Python)
+- all begin with an *uppercase* letter
 
-Conveniently, the primitive types all begin with a *lowercase* letter,
-and the reference types with an *uppercase* letter. This makes it easy to tell
-whether a type is a primitive or a reference type.
+**Primitive Type**:
+- for example Type`int`
+- hold an `int` value directly inside itself
+- all begin with a *lowercase* letter
+
 
 #### 1.3.2.1. Primitives and References in Memory
+Java has to keep track of many things to run code.
+Every variable (its name, type, location in memory and value),
+every object that has been constructed,
+and any method that is running must be tracked.
+
 Suppose we run the following code:
 ```java
 public class Simple {
@@ -207,43 +205,22 @@ public class Simple {
 }
 ```
 
-Java has to keep track of many things to run code.
-Every variable (its name, type, location in memory and value),
-every object that has been constructed,
-and any method that is running must be tracked.
-And we must have a very clear picture of what is happening if we are to
-predict what our code will do.
+at the moment when we reach the`println` statement:
 
-Let's consider the state of computer memory at the moment when we reach the
-`println` statement in the code above:
+- On the call stack we have a "stack frame" for the `main` method of class `Simple`,
+  which is currently running.
+- In it we have our two variables:
+    - `age` has the value `21` directly inside it, because `int` is a primitive type
+    - `name` stores a reference to a `String` object that contains the value `"Jude"`
 
 ![Memory model diagram in Java](images/1.3.png)
 
-There are three areas in memory:
+- call stack: where we keep track of the method that is currently running
+- object space: where objects are stored
+- static space: where static members of a class are stored
 
-- The call stack is where we keep track of the method that is currently running.
-- The object space is where objects are stored.
-- The static space is where static members of a class are stored.
-  We'll learn more about that later.
 
-On the call stack, we have a "stack frame" for the `main` method of class `Simple`,
-which is currently running. In it we have our two variables.
-`age` has the value `21` directly inside it, because `int` is a primitive type.
-`name` does not have `"Jude"` directly inside it. Instead, it stores a reference
-to a `String` object that contains the value `"Jude"`. Since we did not write the
-code for class String, we know nothing about what data members it uses to store
-its contents. So we just write the value `"Jude"` inside the box.
-This is a perfectly fine abstraction.
-
-The difference between primitive and reference types has many consequences,
-including when we copy a value into another variable, when we pass a parameter to a method,
-and when we compare two variables to see if they are equal. More on that shortly!
-
-One more thing to notice about our diagram is that we didn't draw any arrows.
-Programmers often draw an arrow when they want to show that one thing references another.
-This is great once you are very confident with a language and how references work.
-But in the early stages, you are much more likely to make correct predictions
-if you write down references (you can just make up id values) rather than arrows.
+- note: didn't draw any arrows; but write down references (can just make up id values)
 
 ## 1.4. Strings
 ### 1.4.1. Class `String`
