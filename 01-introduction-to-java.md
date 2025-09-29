@@ -925,21 +925,6 @@ The same concept applies to Java.
 
 
 ## 1.8. Control Structures
-In Python, indentation is used to indicate nested code blocks.
-Take the following code for example:
-
-```python
-class_size = 124
-sections = 1;
-if class_size > 100:
-    sections = 2
-    class_size = class_size / 2;
-print('Sections: {} and class size: {}'.format(sections, class_size))
-```
-
-We can tell what is part of the if-statement (the indented lines),
-and what is not (the initial variable assignments and the `print`
-statement after the if-statement).
 
 In Java, white space and indentation do not affect program behaviour
 (though they are very important for readability!)
@@ -961,6 +946,7 @@ if (classSize > 100) {
 
 The round brackets around the condition are **required** in Java!
 The body itself is enclosed within curly braces.
+
 However, if the body of the if-statement has just a single line,
 the curly braces are optional. For example:
 
@@ -983,9 +969,7 @@ But to Java, these extra lines are **OUTSIDE** the if-block.
 They happen regardless of the condition. For this reason, you should always use
 the curly brackets on your code blocks, even when they are not (currently) required.
 
-Similar to Python, an if-statement can have a sequence of additional conditions,
-and they can end with an else. The meaning is just as you've seen in Python,
-but notice that we say `else if` rather than `elif`.
+In Java, we say `else if` rather than `elif`.
 
 ```java
 int grade = 86;
@@ -1024,8 +1008,6 @@ that associates the else with the inner (vs the outer) if-condition.
 
 ### 1.8.2. for Loops
 The syntax for a basic for-loop comes from the C language.
-C is now quite old, and this syntax feels as though we are doing things
-quite "by hand".
 
 This is the general structure of a basic for-loop:
 ```
@@ -1035,11 +1017,11 @@ for (initialization; termination; increment) {
 ```
 
 The header of our for-loop consists of 3 parts:
-- The *initialization* is executed once, before any iteration begins.
+- **initialization** is executed once, before any iteration begins.
   It is very often sets a counter to 0, but it can be any statement.
-- The *termination* is a boolean condition. If it evaluates to true,
+- **termination** is a boolean condition. If it evaluates to true,
   we execute the loop body and then execute the increment.
-- The *increment* is usually, as the name suggests, a statement that
+- **increment** is usually, as the name suggests, a statement that
   increments a variable, but it could be any statement.
 
 Here is a simple example, where we find the sum of the first `n` numbers.
@@ -1124,8 +1106,6 @@ when used inside expressions:
 - `++i` is _pre-increment_: the value is increased before it is used.
 - `i++` is _post-increment_: the value is increased after it is used.
 
-This distinction matters in more complex expressions,
-and can lead to subtle bugs if you're not careful.
 
 ### 1.8.3. while Loops
 In Python, while-loops had the syntax:
@@ -1156,11 +1136,6 @@ The same structural rules hold here as for if-statements:
 - The condition must be inside round brackets.
 - The while-loop's body needs curly braces if it is more than one line long,
   but it should have curly braces even if it is only one line long.
-
-The meaning of a while-loop is just as in Python.
-Each time we hit the top of the loop the condition is evaluated.
-If it evaluates to true, we execute the body of the loop and go back to the top.
-Thus, when the loop terminates, we know that the loop condition is false.
 
 #### 1.8.3.1. do-while Loops
 The do-while loop is another form of a while-loop in Java.
