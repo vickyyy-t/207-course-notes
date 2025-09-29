@@ -225,14 +225,14 @@ at the moment when we reach the`println` statement:
 ## 1.4. Strings
 ### 1.4.1. Class `String`
 Java has a class `String` that represents sequences of characters.
-Let's create a new string object to represent the text Hello:
+
+create a new string object to represent the text Hello:
 
 ```java
 String s1 = new String("Hello");
 ```
 
-Notice that we used **double quotes**.
-This is required for `String` literals in Java.
+**double quotes** is required for `String` literals in Java
 
 Java provides a short-cut for creating string objects,
 so you do not have to explicitly say `new`:
@@ -241,39 +241,27 @@ so you do not have to explicitly say `new`:
 String s2 = "bye";
 ```
 
-This syntax should remind you of how `str` are declared in Python.
-However, don't let the lack of `new` fool you into thinking `String`
-is a primitive type: it is a reference type.
-
-Strings have various methods available to them. More information on these can
-be found using the Java API here: https://docs.oracle.com/javase/8/docs/api/java/lang/String.html
+Strings have various methods available to them. More information: https://docs.oracle.com/javase/8/docs/api/java/lang/String.html
 
 ### 1.4.1.1 String Pool
 
 Nevertheless, there is a difference between using the `new` keyword to
 create a `String` variable and not using the `new` keyword.
-Consider the following Python code:
 
+Without `new`:
+```java
+String s1 = "Hello";
+String s2 = "Hello";
+System.out.println(s1 == s2);
 ```
->>> s1 = "Hello"
->>> s2 = "Hello"
->>> s1 == s2
-True
-```
+we will get `true`: 
+- String s1 = "Hello": throws the value of the string "Hello" into the string pool
+- String s2 = "Hello": makes `s2` point to the same "Hello" string as `s1`, since "Hello" has already
+  been added to the string pool
+- so expression `s1 == s2` will evaluate to `True`, since the two strings contain the same sequence of characters (just like in Python)
 
-The final expression evaluates to `True` since the two strings contain
-the same sequence of characters.
-However, this is slightly different in Java. To avoid excessive memory,
-Java has a special "String Pool" to store the values of string literals.
-For example, if we create a `String` variable by `String s1 = "Hello"` without
-using the `new` keyword, then Java automatically throws the value of the
-string "Hello" into the string pool. Now if we create another string variable
-by `String s2 = "Hello"` without the `new` keyword as well, to avoid excessive memory,
-Java goes to the string pool and looks for this phrase. Since "Hello" has already
-been added to the string pool, Java makes `s2` point to the same "Hello" string as `s1`.
-In this case, the expression `s1 == s2` will evaluate to `True`, just like in Python.
 
-Now if we have the following code:
+With `new`:
 
 ```java
 String s1 = new String("Hello");
@@ -281,24 +269,16 @@ String s2 = new String("Hello");
 System.out.println(s1 == s2);
 ```
 
-We will get `false` as the outcome! The reason is that in this case,
-we have created two _instances_ of the `String` class. Hence, since `s1` and `s2`
-refer to different objects, the result is `false`.
-In summary, be careful with this nuance when comparing values of `String` objects
-as this might lead to opposite results.
+we will get `false`:
 
-The above was describing string interning.
-You can refer to the following links for more information on the string pool and string interning:
-1. https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#intern--
-2. https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-3.10.5
+- we have created two _instances_ of the `String` class
+- since `s1` and `s2` refer to different objects, the result is `false`
 
 ### 1.4.2. Strings are Immutable
-Just as in Python, `String` objects in Java are immutable.
-This means that we can never mutate an existing `String` object.
+`String` objects in Java are immutable (just like in Python)
+
 We *can* perform operations on `String` objects, but rather than change an
 existing `String`, they return a new one.
-For example, see the documentation for the `concat` method at
-https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#concat-java.lang.String-.
 
 ### 1.4.3. String Operations and Methods
 `String` objects can be concatenated to produce a new `String` object:
@@ -322,8 +302,7 @@ s1 = s1.trim();  // In Python: s1.strip()
 ```
 
 There are many more useful methods, including `length`, `startsWith`, and `indexOf`.
-For the full list, consult Java's online documentation for Class `String` at
-https://docs.oracle.com/javase/8/docs/api/java/lang/String.html.
+For the full list: https://docs.oracle.com/javase/8/docs/api/java/lang/String.html.
 
 ### 1.4.4. Mutable Strings: StringBuilder
 Like a `String`, a `StringBuilder` represents a sequence of characters; however,
@@ -342,7 +321,6 @@ sb.setCharAt(3, 'o');
 sb.reverse();
 ```
 
-Again, you can refer to Java's online documentation for more details.
 
 Notice that we did not write:
 ```java
@@ -353,14 +331,14 @@ This would have generated the error
 `incompatible types: String cannot be converted to StringBuilder`.
 
 ### 1.4.5. Single Character Strings: char
-We can have a `String` that contains just one character.
+a `String` that contains just one character:
 
 ```java
 String s = "x";
 ```
 
 There is also a primitive type capable of holding a single character.
-It is called `char`. We must use single quotes when providing a literal value
+It is called `char`. We must use *single quotes* when providing a literal value
 of type `char`:
 
 ```java
@@ -375,9 +353,7 @@ sb.setCharAt(3, 'o');
 
 ### 1.4.6. Mutating Strings vs. New Strings
 We saw that a `String` is immutable but a `StringBuilder` is mutable.
-We can live without `StringBuilder` objects if we construct a new `String` every
-time we need to make a change. But constructing a new object is slower than
-modifying an existing one. For example:
+Constructing a new object is slower than modifying an existing one. For example:
 
 ```java
 String a = "Joshua";
