@@ -510,9 +510,7 @@ They are a little like Python lists, but much, much simpler. In particular:
 
 - An array has a fixed length. It is set when we construct the array and can never change after that.
 - All elements must have the same type, which we must state at the moment when we declare any variable
-  that will refer to an array. Essentially, the type of the variable is not just "array"
-  (we'll see the Java way to say that in a moment) but "array of `int`" or "array of `string`",
-  for example.
+  that will refer to an array. 
 
 ### 1.6.1. Declaring an Array
 
@@ -531,9 +529,6 @@ int[] numbers;
 
 declares an array of `int`. We pronounce this statement "`int` array numbers".
 
-Arrays are reference types. This means that when we declare an array such as `numbers`,
-we are creating a variable that will refer to an array.
-
 Arrays in Java are reference types, meaning the variable doesn’t hold
 the actual data — it holds a reference to an object that contains the data.
 So when we declare variable `numbers`, we’re not creating the array itself,
@@ -543,24 +538,24 @@ just a variable that can point to one.
 
 To actually create the array, we need to create a new object.
 This means we must construct the object, and in Java,
-we do this with the `new` keyword. You also know that this will call an
-appropriate constructor, choosing the right one based on the number and type
-of arguments we give. Normally in Java, this looks like an ordinary method call,
-except that instead of a method name we give a class name.
-For example, if `house` were declared to be of type `String`, you could write
+we do this with the `new` keyword. 
+
+For example, if `house` were declared to be of type `String`, to construct an object of type `String` and store the value `"Hufflepuff"` in it:
  
 ```java
 String house = new String("Hufflepuff");
 ```
 
-to construct an object of type `String` and store the value `"Hufflepuff"` in it.
 
 With arrays, we have some special syntax that looks a bit different.
 This syntax mimics the syntax used in languages like C,
 that pre-date object-oriented programming.
-We use the keyword `new` and the name of the type, but rather than round brackets,
-we use **square brackets**. The only argument we need send the constructor is the
-**size** of the array. Continuing with our `int` array `numbers`, we could construct
+
+- We use the keyword `new` and the name of the type, 
+- We use **square brackets**
+- The only argument we need send the constructor is the
+**size** of the array
+- Continuing with our `int` array `numbers`, we could construct
 it as follows:
 
 ```java
@@ -594,7 +589,6 @@ int[] numbers = {1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024};
 
 This constructs an array of exactly the right length to hold the given values,
 and then assigns them to the elements of the array.
-Note the syntax of using curly braces around the values on the right hand side.
 
 ### 1.6.3. Determining length
 We can find the length of an array by accessing its `length` attribute.
@@ -615,21 +609,10 @@ numbers[1] = 512;
 Since an `int` is primitive, this value `512` is stored directly in the array.
 
 Array indices start at zero as in many other programming languages.
-So our code did not put `512` in the very first spot; it went into the second spot.
-
-Python has some fancy ways of indexing a list For example, if we have this list:
-```python
-houses = ["Hufflepuff", "Gryffindor", "Slytherin", "Ravenclaw"]
-```
-we can do these things:
-```python
-forHarry = houses[-3]   # The third element from the end of the list
-enemies = houses[1:2]   # Make a copy of some of the elements by "slicing"
-```
 
 Java arrays do **not** offer slicing and do not permit negative indices.
-If we try to access an array element at an index that is not between 0 and
-the array's length minus one, we get an error. For example, this code:
+
+For example, this code:
 ```java
 String[] houses = {"Hufflepuff", "Gryffindor", "Slytherin", "Ravenclaw"};
 String forHarry = houses[-3];
@@ -640,23 +623,24 @@ generates the error
 
 ### 1.6.5. Why have such a restricted type?
 
-We've seen that arrays are more restricted than Python lists.
 The biggest restriction is that an array's size can never change.
 
-Why, you may ask, does Java have arrays now that we have invented more
-flexible structures such as Python lists? In fact,
+In fact,
 Java does have more flexible structures,
-including [ArrayList](https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html),
-and we'll learn about these shortly. But it has arrays also, and this is because
+including [ArrayList](https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html).
+But it has arrays also, and this is because
 arrays are very efficient. It takes both extra space and extra time in order to
 provide a list structure that can grow and shrink to arbitrary sizes.
+
 So Java gives you a choice: If you don't need this flexibility,
 you can use a super efficient array; and if you do,
 you can use a flexible structure such as `ArrayList` instead.
 
 ### 1.6.5.1. Mixing types within an array is made possible by inheritance
 We can use inheritance to get around the restriction that every element
-of an array must have the same type. Every Java class is a descendant of a
+of an array must have the same type. 
+
+Every Java class is a descendant of a
 built-in class called `Object`
 (similar to how everything in Python inherits from class `object`).
 So we can simply declare that our array will hold values of type `Object`,
