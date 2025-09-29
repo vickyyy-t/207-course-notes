@@ -373,13 +373,6 @@ IntelliJ will even point this out to you in some situations and suggest you chan
 ![IntelliJ recommending use of StringBuilder](images/stringbuilder.gif)
 
 ## 1.5. Classes in Java
-Although we haven't begun to define our own classes,
-other than the simple one we need to contain a `main` method,
-we have been using classes, such as `String` and `StringBuilder`. 
-Let's look at a few concepts we need in order to confidently write client
-code that uses other classes.
-In the next chapter, we will learn more about defining our own custom classes.
-
 ### 1.5.1. Instantiating an object
 
 In Python, we can create an instance of a class (in other words: creating an object)
@@ -416,44 +409,20 @@ System.out.println(new StringBuilder("Balakrishnan").indexOf("kris"));
 
 ### 1.5.2. APIs
 
-Now we have a reference to an object that is an instance of some class.
-What can we do with it? The documentation for the class will tell us.
+The documentation for the class will tell us want can we do with the class.
 If it is a built-in Java class such as `StringBuilder`, we should consult the
 [standard Java documentation](https://docs.oracle.com/javase/8/docs/api/) for
 full details on the methods and data members of the class that are available to us.
-Go there now and find the
+e.g.
 [documentation for the StringBuilder](https://docs.oracle.com/javase/8/docs/api/java/lang/StringBuilder.html)
-class.
 
 The documentation looks something like this:
 
 ![Screenshot of the StringBuilder API](images/1.5.png)
 
-Within that page, find and review the documentation for the constructor that
-takes a `String`, the `append` method, and the `indexOf` method.
-
-This documentation specifies exactly how client code can interact with the class,
-in this case class `StringBuilder`. We call this the _Application Programming Interface_ or API.
+This documentation specifies exactly how client code can interact with the class. We call this the _Application Programming Interface_ or API.
 It tells us what methods we can call, what arguments we must send,
-and what value will be returned. Be sure to bookmark the Java API
-and refer to it regularly.
-You will find all sorts of Java resources online, but this is the definitive reference
-for the Java API.
-
-Notice that the API does not tell us how the class provides these services.
-There are some exceptions, in cases where describing the implementation is the
-easiest way to describe important facts about runtime performance of the class, but
-the API documentation typically focuses on how to use the provided services.
-
-When we know the interface, not the implementation details,
-we are free to think of the class in abstract terms rather than getting bogged down in
-details of the implementation -- these don't matter when we are just trying
-to _use_ the class.
-
-At the same time, the implementers of the class are free to change the implementation
-in any way without having any impact on client code that may already exist.
-As long as the API is maintained, all is well. We have the same separation between
-interface and implementation, with the same benefits, whenever we define a helper method.
+and what value will be returned.
 
 ### 1.5.3. Calling methods
 Just like in Python, we call an instance method via a reference to an instance of a class.
@@ -466,14 +435,12 @@ int size = band.length();
 
 ```
 
-You may find it helpful to imagine you are asking the object to do something for you.
-For instance, when we write `band.length()` it is like saying
-"Hey band, you're a `String`: tell me your length!".
 
 ### 1.5.4. Class methods
 Some methods are associated not with individual instances of a class,
 but with the class as a whole. We call these "class methods"
 (or "static methods", since they are defined using the keyword `static`).
+
 We access a class method via the class name. For example:
 
 ```java
@@ -481,7 +448,6 @@ We access a class method via the class name. For example:
 double x = Math.cos(48);
 ```
 
-You can think of `Math.cos(48)` as saying "Hey `Math` class, tell me the cosine of 48".
 
 Class `String` has some class methods, including `valueOf`,
 which takes an `int` and returns the equivalent `String`.
@@ -492,13 +458,6 @@ Here is an example of using class method `valueOf`:
 int age = 12;
 System.out.println("Age is " + String.valueOf(age));
 ```
-
-It makes sense to say:
-"Hey `String` class, tell me the `String` value for this integer age".
-It would make less sense to say to a `String` s:
-"Hey `s`, you're a String, tell me the String value for the integer age."
-This is why the designers of the class made `valueOf` a class method rather
-than an instance method.
 
 ### 1.5.5. Accessing data members
 How we access data members (also known as attributes or instance variables) is
@@ -543,9 +502,6 @@ If we know that we don't need an object anymore, we can explicitly drop a refere
 by setting the variable holding the reference to `null`.
 This can hasten garbage collection and improve performance,
 but it may also be unnecessary and just make your code needlessly messy.
-There is a good discussion of this on
-[StackOverflow](https://stackoverflow.com/questions/449409/does-assigning-objects-to-null-in-java-impact-garbage-collection)
-for anyone interested. 
 
 
 ## 1.6. Arrays
